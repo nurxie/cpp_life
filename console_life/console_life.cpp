@@ -1,8 +1,8 @@
 ﻿#include <iostream>
 using namespace std;
 
-const int x_define = 4; //10
-const int y_define = 4; //10
+const int x_define = 10; //10
+const int y_define = 10; //10
 
 const int b1 = 3;
 const int s1 = 2;
@@ -62,6 +62,7 @@ bool cell_survival(char mass_income[][x_define], char mass_outcome[][x_define], 
 bool cell_birth(char mass_income[][x_define], char mass_outcome[][x_define], int y_outside, int x_outside) {
     if (neighbors_counter(mass_income, y_outside, x_outside) >= b1) {
         mass_outcome[y_outside][x_outside] = FILL;
+        cell_survival(mass_income, mass_outcome, y_outside, x_outside);
     }
     return 1;
 }
@@ -109,17 +110,24 @@ bool appropriation_mass(char mass_income[][x_define], char mass_outcome[][x_defi
 
 int main()
 {
-    char mass_income[y_define][x_define] = { UNFILL, FILL, UNFILL, UNFILL, 
-                                             FILL, UNFILL, FILL, UNFILL, 
-                                             UNFILL, FILL, UNFILL, UNFILL, 
-                                             UNFILL, UNFILL, UNFILL, UNFILL, };
+    char mass_income[y_define][x_define] = { UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL,
+                                             FILL, FILL, FILL, FILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL,
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL,
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL,
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, 
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, 
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, 
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, 
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, 
+                                             UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, UNFILL, };
     char mass_outcome[y_define][x_define];
-    fill_mass_with_unfill(mass_outcome);
+   // fill_mass_with_unfill(mass_outcome);
 
         cout_mass(mass_income);
         cout << "========================" << endl;
     for (int i = 0; i < 50; i++) {
         //cin >> i;
+        appropriation_mass(mass_outcome, mass_income);
         life_period(mass_income, mass_outcome);
         cout_mass(mass_outcome);
         appropriation_mass(mass_income, mass_outcome);
